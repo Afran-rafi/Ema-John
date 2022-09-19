@@ -11,9 +11,9 @@ const Navbar = () => {
   ];
   let [open, setOpen] = useState(false);
   return (
-    <div className="">
+    <div className="text-center">
       <div className="shadow-md w-full fixed top-0 left-0">
-        <div className="md:flex items-center justify-between py-4 md:px-10 px-7 back md:back">
+        <div className="md:flex items-center justify-between py-4 md:px-24 px-7 back md:back">
           <div className="font-bold text-2xl cursor-pointer flex items-center text-white">
             <span className="text-3xl text-indigo-600 mr-1 pt-2">
               <img src={img} alt="" />

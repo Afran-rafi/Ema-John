@@ -1,0 +1,10 @@
+.image{
+    height: 450px;
+}
+
+@media screen and (max-width:640px) {
+    .reverse{
+        order: 6;
+        padding:40px
+    }
+}
