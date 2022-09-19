@@ -10,7 +10,7 @@ const Shop = () => {
             .then(data => setProducts(data))
     }, [])
     return (
-        <div className='products-container'>
+        <div className='products-container lg:mx-0 mx-10 lg:gap-6 gap-2'>
             <div className='grid lg:grid-cols-3 gap-4 grid-cols-1'>
                 {
                     products.map(product => <Product
@@ -19,8 +19,8 @@ const Shop = () => {
                     ></Product>)
                 }
             </div>
-            <div>
-                <h1 className='text-xl'>Order Summary</h1>
+            <div className='bg-[#FFE0B3]'>
+                <h1 className='text-xl text-center mt-10 lg:p-0 p-2'>Order Summary</h1>
             </div>
         </div>
     );
