@@ -5,9 +5,7 @@ const Cart = (props) => {
     
     let price = 0;
     let shipping = 0;
-    // for(const product of cart){
-    //     price = price + product.price;
-    // }
+    
     cart.map(product => {
         price = price + product.price;
         shipping = shipping + product.shipping;
