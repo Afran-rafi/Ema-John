@@ -1,14 +1,16 @@
 import React from 'react';
 
 const Cart = (props) => {
-    const {cart} = props;
-    
+    const { cart } = props;
+
     let price = 0;
     let shipping = 0;
-    
+    let quantity = 0;
+
     cart.map(product => {
-        price = price + product.price;
-        shipping = shipping + product.shipping;
+        quantity = quantity + product.quantity;
+        price = price + product.price * product.quantity;
+        shipping = shipping + product.shipping * product.quantity;
     });
     const tax = price * 10 / 100;
     const total = price + shipping + tax;
@@ -17,7 +19,7 @@ const Cart = (props) => {
         <div className='sticky top-[100px]'>
             <h1 className='text-xl text-center mt-10 lg:p-0 p-2 font-bold'>Order Summary</h1>
             <div className='mt-6'>
-                <p>Selected Items: {cart.length}</p>
+                <p>Selected Items: {quantity}</p>
                 <p>Total Price: ${price}</p>
                 <p>Total Shipping: ${shipping}</p>
                 <p>Tax: {tax}</p>

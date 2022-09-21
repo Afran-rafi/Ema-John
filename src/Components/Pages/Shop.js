@@ -8,18 +8,18 @@ const Shop = () => {
     const [products, setProducts] = useState([])
     const [cart, setCart] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch(`products.json`)
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         const storedCart = getCart();
         const savedCart = [];
-        for(const id in storedCart){
+        for (const id in storedCart) {
             const addedProduct = products.find(product => product.id === id)
-            if(addedProduct){
+            if (addedProduct) {
                 const quantity = storedCart[id];
                 addedProduct.quantity = quantity;
                 savedCart.push(addedProduct);
@@ -29,8 +29,18 @@ const Shop = () => {
     }, [products]);
 
     const handleCart = (product) => {
-        // const newCart = cart + 1;
-        const newCart = [...cart, product]
+        let newCart = [];
+        const exists = cart.find(pro => pro.id === product.id);
+        if (!exists) {
+            product.quantity = 1;
+            newCart = [...cart, product];
+        }
+        else {
+            const rest = cart.filter(pro => pro.id !== product.id);
+            exists.quantity = exists.quantity + 1;
+            newCart = [...rest, exists];
+        }
+        // const newCart = [...cart, product]
         setCart(newCart);
         dataStorage(product.id);
     }
@@ -39,15 +49,14 @@ const Shop = () => {
             <div className='grid lg:grid-cols-3 gap-4 grid-cols-1'>
                 {
                     products.slice(0, 15).map(product => <Product
-                    key= {product.id}
-                    product={product}
-                    handleCart= {handleCart}
+                        key={product.id}
+                        product={product}
+                        handleCart={handleCart}
                     ></Product>)
                 }
             </div>
             <div className='bg-[#FFE0B3] lg:px-4 px-2 rounded'>
-                <Cart 
-                cart = {cart}></Cart>
+                <Cart cart={cart}></Cart>
             </div>
         </div>
     );
