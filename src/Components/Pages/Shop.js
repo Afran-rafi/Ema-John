@@ -49,7 +49,7 @@ const Shop = () => {
         dataStorage(product.id);
     }
     return (
-        <div className='products-container lg:mx-0 mx-10 lg:gap-6 gap-2 lg:mt-16 mt-6'>
+        <div className='products-container lg:mx-0 lg:gap-6 gap-2 lg:mt-16 mt-6'>
             <div className='grid lg:grid-cols-3 gap-4 grid-cols-1'>
                 {
                     products.slice(0, 15).map(product => <Product

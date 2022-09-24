@@ -1,0 +1,11 @@
+.order-container{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+@media screen and (max-width: 650px) {
+    .order-container{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}

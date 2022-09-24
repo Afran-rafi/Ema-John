@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="2xl:container 2xl:mx-auto">
       <Navbar></Navbar>
-      <div className="lg:px-24">
+      <div className="lg:px-24 px-6">
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/shop" element={<Shop></Shop>}></Route>
