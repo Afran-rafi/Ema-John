@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import '../CSS/Shop.css'
+import useCart from '../Hooks/useCart';
+import useProduct from '../Hooks/useProducts';
 import { dataStorage, getCart } from '../Utilities/storage';
 import Cart from './Cart';
 import Product from './Product';
 
 const Shop = () => {
-    const [products, setProducts] = useState([])
-    const [cart, setCart] = useState([])
+    // const [cart, setCart] = useState([])
+    // const [products, setProducts] = useState([])
 
-    useEffect(() => {
-        fetch(`products.json`)
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch(`products.json`)
+    //         .then(res => res.json())
+    //         .then(data => setProducts(data))
+    // }, [])
+    const [products, setProducts] = useProduct();
+    const [cart, setCart] = useCart(products);
 
-    useEffect(() => {
-        const storedCart = getCart();
-        const savedCart = [];
-        for (const id in storedCart) {
-            const addedProduct = products.find(product => product.id === id)
-            if (addedProduct) {
-                const quantity = storedCart[id];
-                addedProduct.quantity = quantity;
-                savedCart.push(addedProduct);
-            }
-        }
-        setCart(savedCart);
-    }, [products]);
+    // useEffect(() => {
+    //     const storedCart = getCart();
+    //     const savedCart = [];
+    //     for (const id in storedCart) {
+    //         const addedProduct = products.find(product => product.id === id)
+    //         if (addedProduct) {
+    //             const quantity = storedCart[id];
+    //             addedProduct.quantity = quantity;
+    //             savedCart.push(addedProduct);
+    //         }
+    //     }
+    //     setCart(savedCart);
+    // }, [products]);
 
     const handleCart = (product) => {
         let newCart = [];

@@ -19,7 +19,8 @@ const Product = (props) => {
                     <p>Ratings: {ratings}</p>
                 </div>
             </div>
-            <button onClick={() => handleCart(product)} className='bg-[#FFE0B3] w-full py-1 mt-2'>Add to Cart <i className="fa-solid fa-cart-plus"></i></button>
+            
+            <button onClick={() => handleCart(product)} className='w-full bg-[#FFE0B3] px-4 py-1 mt-2'>Add to Cart <i className="fa-solid fa-cart-plus"></i></button>
         </div>
     );
 };
