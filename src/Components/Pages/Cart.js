@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = (props) => {
     const { cart } = props;
@@ -15,6 +16,11 @@ const Cart = (props) => {
     const tax = price * 10 / 100;
     const total = price + shipping + tax;
 
+    const navigate = useNavigate();
+    const orderPage = () => {
+        navigate(`/order`);
+    }
+
     return (
         <div className='sticky top-[100px]'>
             <h1 className='text-xl text-center mt-10 lg:p-0 p-2 font-bold'>Order Summary</h1>
@@ -26,7 +32,7 @@ const Cart = (props) => {
                 <h5 className='font-bold text-md'>Grand Total: ${total}</h5>
             </div>
             <button className='bg-[#FF3030] w-full py-1 text-white rounded mt-4'>Clear Cart <i className="fa-solid fa-trash-can"></i></button>
-            <button className='bg-[#FF9900] w-full py-1 text-white rounded mt-4'>Review Order <i className="fa-solid fa-arrow-right"></i></button>
+            <button onClick={orderPage} className='bg-[#FF9900] w-full py-1 text-white rounded mt-4'>Review Order <i className="fa-solid fa-arrow-right"></i></button>
         </div>
     );
 };
