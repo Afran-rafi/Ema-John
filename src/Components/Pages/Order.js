@@ -17,13 +17,15 @@ const Order = () => {
                                 <div>
                                     <img className='w-[80px] h-[80px] rounded' src={product.img} alt="" />
                                 </div>
-                                <div className='ml-2'>
-                                    <h1 className='text-sm'>{product.name}</h1>
-                                    <p className='text-xs'>Price: ${product.price}</p>
-                                    <p className='text-xs'>Shipping Charge: ${product.shipping}</p>
-                                </div>
-                                <div className='ml-4'>
-                                    <button><i className="fa-regular fa-trash-can bg-red-500 p-2 rounded-full text-white"></i></button>
+                                <div className='flex items-center w-full justify-between lg:mr-20'>
+                                    <div className='ml-2'>
+                                        <h1 className=''>{product.name}</h1>
+                                        <p className='text-xs'>Price: ${product.price}</p>
+                                        <p className='text-xs'>Shipping Charge: ${product.shipping}</p>
+                                    </div>
+                                    <div className='ml-4'>
+                                        <button><i className="fa-regular fa-trash-can bg-red-500 p-2 rounded-full text-white"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         )
