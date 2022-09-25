@@ -1,4 +1,5 @@
 import React from 'react';
+import { storageRemoved } from '../Utilities/storage';
 
 const Cart = (props) => {
     const { cart } = props;
@@ -15,7 +16,9 @@ const Cart = (props) => {
     const tax = price * 10 / 100;
     const total = price + shipping + tax;
 
-    
+    const removedDb = () => {
+        storageRemoved();
+    }
 
     return (
         <div className='sticky top-[100px]'>
@@ -27,7 +30,7 @@ const Cart = (props) => {
                 <p>Tax: {tax}</p>
                 <h5 className='font-bold text-md'>Grand Total: ${total}</h5>
             </div>
-            <button className='bg-[#FF3030] w-full py-1 text-white rounded mt-4'>Clear Cart <i className="fa-solid fa-trash-can"></i></button>
+           <a href=""> <button onClick={removedDb} className='bg-[#FF3030] w-full py-1 text-white rounded mt-4'>Clear Cart <i className="fa-solid fa-trash-can"></i></button></a>
             <button className='bg-[#FF9900] w-full py-1 text-white rounded mt-4'>{props.children}</button>
         </div>
     );

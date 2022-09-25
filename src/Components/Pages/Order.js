@@ -3,6 +3,7 @@ import useCart from '../Hooks/useCart';
 import useProduct from '../Hooks/useProducts';
 import Cart from './Cart';
 import '../CSS/Order.css'
+import { removeStorage } from '../Utilities/storage';
 
 const Order = () => {
     const [products, setProducts] = useProduct();
@@ -11,6 +12,7 @@ const Order = () => {
     const handleRemoveProduct = (product) => {
         const rest = cart.filter(pd => pd.id !== product.id)
         setCart(rest);
+        removeStorage(product.id);
     }
     return (
         <div className='order-container gap-10'>
