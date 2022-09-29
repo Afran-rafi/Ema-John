@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import google from '../Images/google.png'
 
-const Register = () => {
+const LoginDesign = () => {
     return (
         <div className='flex justify-center lg:my-6'>
-            <div className='w-[380px] p-8 bg-gray-50 rounded shadow-md'>
+            <div className='w-[380px] p-8 bg-gray-100 rounded'>
                 <h1 className='text-center text-2xl font-bold'>Sign Up</h1>
                 <div className='mt-6'>
                     <p>Name:</p>
@@ -36,13 +35,12 @@ const Register = () => {
                         <hr />
                     </div>
                 </div>
-                <div className='flex justify-center items-center mt-2 b rounded'>
-                    <img className='w-[30px] h-[30px]' src={google} alt="" />
-                    <button className='py-2 rounded font-bold ml-2'>Continue With Google</button>
+                <div className='flex justify-center mt-2'>
+                    <button className='w-full b py-2 rounded font-bold'>Continue With Google</button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Register;
+export default LoginDesign;
