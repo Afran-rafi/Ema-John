@@ -58,7 +58,7 @@ const Shop = () => {
         <div className='products-container lg:mx-0 lg:gap-6 gap-2 lg:mt-16 mt-6'>
             <div className='grid lg:grid-cols-3 gap-4 grid-cols-1'>
                 {
-                    products.slice(0, 15).map(product => <Product
+                    products.map(product => <Product
                         key={product.id}
                         product={product}
                         handleCart={handleCart}
