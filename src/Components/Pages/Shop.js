@@ -31,7 +31,7 @@ const Shop = () => {
     //         }
     //     }
     //     setCart(savedCart);
-    // }, [products]);
+    // }, [products]);111111111111111
 
     const handleCart = (product) => {
         let newCart = [];
