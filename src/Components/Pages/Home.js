@@ -47,6 +47,9 @@ const Home = () => {
                     </Cart>
                 </div>
             </div>
+            <div className='flex justify-center lg:my-10 my-6'>
+                <Link to='/shop'><button className='bg-orange-500 py-2 rounded px-6 text-white'>See All Product</button></Link>
+            </div>
         </div>
     );
 };
