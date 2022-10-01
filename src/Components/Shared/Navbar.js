@@ -37,9 +37,9 @@ const Navbar = () => {
           <li className="px-4 text-white text-xl">
             {
               user ?
-              <button onClick={logOut}>SignOut</button>
-              :
-              <Link to='/login'>Login</Link>
+                <button onClick={logOut}>SignOut</button>
+                :
+                <Link to='/login'>Login</Link>
             }
           </li>
         </ul>

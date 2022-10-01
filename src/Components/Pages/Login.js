@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase-config';
 import '../CSS/Login.css';
 import google from '../Images/google.png'
@@ -8,8 +8,13 @@ import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
 
 const Login = () => {
+
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const [
         signInWithEmailAndPassword,
@@ -18,25 +23,22 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-    const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
-
     const onSubmit = async (data) => {
         await signInWithEmailAndPassword(data.email, data.password);
         reset();
-        await updateProfile({ displayName: data.name });
     };
 
-    if (loading || googleLoading || updating) {
+    if (loading || googleLoading) {
         return <Loading></Loading>
     }
 
     if (user || googleUser) {
-        console.log(user);
+        navigate(from, { replace: true });
     }
 
     let errorMassage;
-    if (error || googleError || updatingError) {
-        errorMassage = <p className='text-xs text-red-500 mt-2 font-bold'>{error?.message || googleError?.message || updatingError.message}</p>;
+    if (error || googleError) {
+        errorMassage = <p className='text-xs text-red-500 mt-2 font-bold'>{error?.message || googleError?.message}</p>;
     }
 
     return (
@@ -94,7 +96,7 @@ const Login = () => {
                 </form>
                 {errorMassage}
                 <p className='text-center text-xs mt-2'>New to Ema John? <Link className='text-orange-500 font-bold' to='/signUp'>Create New User</Link></p>
-                <p className='text-center text-xs mt-2'>Forget Password? <span className='font-bold text-orange-500'>Reset Password</span></p>
+                <p className='text-center text-xs mt-2'>Forget Password? <button className='font-bold text-orange-500 border-none'>Reset Password</button></p>
                 <div className='flex justify-around items-center mt-2'>
                     <div className='w-[30%]'>
                         <hr />

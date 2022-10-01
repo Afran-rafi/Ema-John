@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase-config';
 import google from '../Images/google.png'
@@ -13,25 +13,27 @@ const Register = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
 
     if (user || googleUser) {
         console.log(user);
     }
 
-    if (loading || googleLoading) {
+    if (loading || googleLoading || updating) {
         return <Loading></Loading>
     }
 
     let errorMessage;
-    if (error || googleError) {
+    if (error || googleError || updatingError) {
         errorMessage = <p className='text-xs text-red-500 mt-2 font-bold'>{error.message || googleError.message}</p>
     }
 
     const onSubmit = async (data) => {
-        await createUserWithEmailAndPassword(data.email, data.password, { sendEmailVerification: true });
+        await createUserWithEmailAndPassword(data.email, data.password);
         reset();
+        await updateProfile({ displayName: data.name });
     };
 
     return (
