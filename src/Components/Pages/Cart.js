@@ -30,8 +30,8 @@ const Cart = (props) => {
                 <p>Tax: {tax}</p>
                 <h5 className='font-bold text-md'>Grand Total: ${total}</h5>
             </div>
-           <a href=""> <button onClick={removedDb} className='bg-[#FF3030] w-full py-1 text-white rounded mt-4'>Clear Cart <i className="fa-solid fa-trash-can"></i></button></a>
-            <button className='bg-[#FF9900] w-full py-1 text-white rounded mt-4'>{props.children}</button>
+            <a href=""> <button onClick={removedDb} className='bg-[#FF3030] w-full py-1 text-white rounded mt-4'>Clear Cart <i className="fa-solid fa-trash-can"></i></button></a>
+            {props.children}
         </div>
     );
 };

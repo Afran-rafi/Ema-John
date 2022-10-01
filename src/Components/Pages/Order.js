@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import useCart from '../Hooks/useCart';
 import useProduct from '../Hooks/useProducts';
 import Cart from './Cart';
@@ -19,7 +18,7 @@ const Order = () => {
             <div>
                 {
                     cart.map(product => {
-                        return(  
+                        return (
                             <div key={product.id} className='flex items-center border p-1 mt-6 rounded'>
                                 <div>
                                     <img className='w-[80px] h-[80px] rounded' src={product.img} alt="" />
@@ -32,7 +31,7 @@ const Order = () => {
                                         <p className='text-xs'>Quantity: {product.quantity}</p>
                                     </div>
                                     <div className='ml-4'>
-                                        <button onClick={()=> handleRemoveProduct(product)}><i className="fa-regular fa-trash-can bg-red-500 p-2 rounded-full text-white"></i></button>
+                                        <button onClick={() => handleRemoveProduct(product)}><i className="fa-regular fa-trash-can bg-red-500 p-2 rounded-full text-white"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +41,7 @@ const Order = () => {
             </div>
             <div className='bg-[#FFE0B3] px-6 mt-6 py-6 rounded'>
                 <Cart cart={cart}>
-                    <button>Proceed Checkout <i className="fa-solid fa-money-check-dollar"></i></button>
+                    <button className='bg-[#FF9900] w-full py-1 text-white rounded mt-4'>Proceed Checkout <i className="fa-solid fa-money-check-dollar"></i></button>
                 </Cart>
             </div>
         </div>

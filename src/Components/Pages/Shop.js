@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../CSS/Shop.css'
 import useCart from '../Hooks/useCart';
 import useProduct from '../Hooks/useProducts';
@@ -50,10 +50,10 @@ const Shop = () => {
         dataStorage(product.id);
     }
 
-    const navigate = useNavigate();
-    const orderPage = () => {
-        navigate(`/order`);
-    }
+    // const navigate = useNavigate();
+    // const orderPage = () => {
+    //     navigate('/order');
+    // }
     return (
         <div className='products-container lg:mx-0 lg:gap-6 gap-2 lg:mt-16 mt-6'>
             <div className='grid lg:grid-cols-3 gap-4 grid-cols-1'>
@@ -67,7 +67,7 @@ const Shop = () => {
             </div>
             <div className='bg-[#FFE0B3] lg:px-4 px-2 rounded'>
                 <Cart cart={cart}>
-                <button onClick={orderPage}>Review Order <i className="fa-solid fa-arrow-right"></i></button>
+                    <Link to='/order'><button className='bg-[#FF9900] w-full py-1 text-white rounded mt-4'>Review Order <i className="fa-solid fa-arrow-right"></i></button></Link>
                 </Cart>
             </div>
         </div>

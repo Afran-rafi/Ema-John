@@ -43,7 +43,7 @@ const Home = () => {
                 </div>
                 <div className='bg-[#FFE0B3] lg:px-4 px-2 rounded'>
                     <Cart cart={cart}>
-                        <Link to='/order'><button>Review Order <i className="fa-solid fa-arrow-right"></i></button></Link>
+                        <Link to='/order'><button className='bg-[#FF9900] w-full py-1 text-white rounded mt-4'>Review Order <i className="fa-solid fa-arrow-right"></i></button></Link>
                     </Cart>
                 </div>
             </div>
