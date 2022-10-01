@@ -8,6 +8,7 @@ import Register from "./Components/Pages/Register";
 import Shop from "./Components/Pages/Shop";
 import Errorpage from "./Components/Shared/Errorpage";
 import Navbar from "./Components/Shared/Navbar";
+import RequireAuth from "./Components/Shared/RequireAuth";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/shop" element={<Shop></Shop>}></Route>
           <Route path="/order" element={<Order></Order>}></Route>
-          <Route path="/inventory" element={<Inventory></Inventory>}></Route>
+          <Route path="/inventory" element={<RequireAuth><Inventory></Inventory></RequireAuth>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/signUp" element={<Register></Register>}></Route>
           <Route path="*" element={<Errorpage></Errorpage>}></Route>
