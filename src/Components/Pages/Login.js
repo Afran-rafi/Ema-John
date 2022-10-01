@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase-config';
 import '../CSS/Login.css';
@@ -17,9 +17,16 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
+    const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
+
     const onSubmit = async (data) => {
-        signInWithEmailAndPassword(data.email, data.password);
+        await signInWithEmailAndPassword(data.email, data.password);
+        await updateProfile({ displayName: data.name });
     };
+
+    if (user || googleUser) {
+        console.log(user);
+    }
 
     let errorMassage;
     if (error || googleError) {

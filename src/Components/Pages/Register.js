@@ -15,10 +15,11 @@ const Register = () => {
         sendEmailVerification
     ] = useCreateUserWithEmailAndPassword(auth);
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     const onSubmit = async (data) => {
         await createUserWithEmailAndPassword(data.email, data.password, { sendEmailVerification: true });
+        reset();
     };
 
     return (
