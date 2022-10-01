@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase-config';
 import '../CSS/Login.css';
@@ -7,13 +7,24 @@ import google from '../Images/google.png'
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-    if (user) {
-        console.log(user);
-    }
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+    const { register, formState: { errors }, handleSubmit } = useForm();
 
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    const onSubmit = async (data) => {
+        signInWithEmailAndPassword(data.email, data.password);
+    };
+
+    let errorMassage;
+    if (error || googleError) {
+        errorMassage = <p className='text-xs text-red-500 mt-2 font-bold'>{error?.message || googleError?.message}</p>;
+    }
 
     return (
         <div className='flex justify-center lg:my-6'>
@@ -22,17 +33,55 @@ const Login = () => {
                     <h1 className='text-center text-2xl font-bold'>Login</h1>
                     <div className='mt-4'>
                         <p>Email:</p>
-                        <input className='w-full h-[40px] rounded b' type="email" name="" id="email" />
+                        <input
+                            className='w-full h-[40px] rounded b'
+                            type="email"
+                            name="email"
+                            id="email"
+                            {...register("email", {
+                                required: {
+                                    value: true,
+                                    message: 'Email is Required'
+                                },
+                                pattern: {
+                                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                                    message: 'Provide a valid Email'
+                                }
+                            })} />
+                        <div>
+                            {errors.email?.type === 'required' && <span className="text-xs text-red-500">{errors.email.message}</span>}
+                            {errors.email?.type === 'pattern' && <span className="text-xs text-red-500">{errors.email.message}</span>}
+                        </div>
                     </div>
                     <div className='mt-4'>
                         <p>Password:</p>
-                        <input className='w-full h-[40px] rounded b' type="password" name="" id="password" />
+                        <input
+                            className='w-full h-[40px] rounded b'
+                            type="password"
+                            name="password"
+                            id="password"
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: 'Password is Required'
+                                },
+                                pattern: {
+                                    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                                    message: 'Minimum eight characters, At least One letter, One number and One special character'
+                                }
+                            })} />
+                        <div>
+                            {errors.password?.type === 'required' && <span className="text-xs text-red-500">{errors.password.message}</span>}
+                            {errors.password?.type === 'pattern' && <span className="text-xs text-red-500">{errors.password.message}</span>}
+                        </div>
                     </div>
                     <div className='flex justify-center mt-6'>
                         <button className='bg-orange-200 py-2 w-full rounded font-bold'>Login</button>
                     </div>
                 </form>
+                {errorMassage}
                 <p className='text-center text-xs mt-2'>New to Ema John? <Link className='text-orange-500 font-bold' to='/signUp'>Create New User</Link></p>
+                <p className='text-center text-xs mt-2'>Forget Password? <span className='font-bold text-orange-500'>Reset Password</span></p>
                 <div className='flex justify-around items-center mt-2'>
                     <div className='w-[30%]'>
                         <hr />

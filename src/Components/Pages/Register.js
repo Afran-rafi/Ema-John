@@ -13,14 +13,14 @@ const Register = () => {
         loading,
         error,
         sendEmailVerification
-      ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    
+
     const onSubmit = async (data) => {
-        await createUserWithEmailAndPassword(data.email, data.password, {sendEmailVerification: true});
+        await createUserWithEmailAndPassword(data.email, data.password, { sendEmailVerification: true });
     };
-    
+
     return (
         <div className='flex justify-center lg:my-6'>
             <div className='w-[380px] p-8 bg-gray-50 rounded shadow-md'>
@@ -29,20 +29,20 @@ const Register = () => {
                     <div className='mt-6'>
                         <p>Full Name:</p>
                         <input
-                        className='w-full h-[40px] rounded b' 
-                        type="text" 
-                        name='name' 
-                        id='name' 
-                        {...register("name", {
-                            required: {
-                                value: true,
-                                message: 'Name is Required'
-                            },
-                            minLength: {
-                                value: 3,
-                                message: 'Name is Required'
-                            }
-                        })}/>
+                            className='w-full h-[40px] rounded b'
+                            type="text"
+                            name='name'
+                            id='name'
+                            {...register("name", {
+                                required: {
+                                    value: true,
+                                    message: 'Name is Required'
+                                },
+                                minLength: {
+                                    value: 3,
+                                    message: 'Name is Required'
+                                }
+                            })} />
                         <div>
                             {errors.name?.type === 'required' && <span className="text-xs text-red-500">{errors.name.message}</span>}
                             {errors.name?.type === 'minLength' && <span className="text-xs text-red-500">{errors.name.message}</span>}
@@ -51,21 +51,21 @@ const Register = () => {
 
                     <div className='mt-4'>
                         <p>Email:</p>
-                        <input 
-                        className='w-full h-[40px] rounded b' 
-                        type="email" 
-                        name="email" 
-                        id="email" 
-                        {...register("email", {
-                            required: {
-                                value: true,
-                                message: 'Email is Required'
-                            },
-                            pattern: {
-                                value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                                message: 'Provide a valid Email'
-                            }
-                        })}/>
+                        <input
+                            className='w-full h-[40px] rounded b'
+                            type="email"
+                            name="email"
+                            id="email"
+                            {...register("email", {
+                                required: {
+                                    value: true,
+                                    message: 'Email is Required'
+                                },
+                                pattern: {
+                                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                                    message: 'Provide a valid Email'
+                                }
+                            })} />
                         <div>
                             {errors.email?.type === 'required' && <span className="text-xs text-red-500">{errors.email.message}</span>}
                             {errors.email?.type === 'pattern' && <span className="text-xs text-red-500">{errors.email.message}</span>}
@@ -74,21 +74,21 @@ const Register = () => {
 
                     <div className='mt-4'>
                         <p>Password:</p>
-                        <input 
-                        className='w-full h-[40px] rounded b' 
-                        type="password" 
-                        name="password" 
-                        id="password" 
-                        {...register("password", {
-                            required: {
-                                value: true,
-                                message: 'Password is Required'
-                            },
-                            pattern: {
-                                value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                                message: 'Minimum eight characters, At least One letter, One number and One special character'
-                            }
-                        })}/>
+                        <input
+                            className='w-full h-[40px] rounded b'
+                            type="password"
+                            name="password"
+                            id="password"
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: 'Password is Required'
+                                },
+                                pattern: {
+                                    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                                    message: 'Minimum eight characters, At least One letter, One number and One special character'
+                                }
+                            })} />
                         <div>
                             {errors.password?.type === 'required' && <span className="text-xs text-red-500">{errors.password.message}</span>}
                             {errors.password?.type === 'pattern' && <span className="text-xs text-red-500">{errors.password.message}</span>}
