@@ -5,10 +5,11 @@ import auth from '../../firebase-config';
 import '../CSS/Login.css';
 import google from '../Images/google.png'
 import { useForm } from "react-hook-form";
+import Loading from '../Shared/Loading';
 
 const Login = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     const [
         signInWithEmailAndPassword,
@@ -21,16 +22,21 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         await signInWithEmailAndPassword(data.email, data.password);
+        reset();
         await updateProfile({ displayName: data.name });
     };
+
+    if (loading || googleLoading || updating) {
+        return <Loading></Loading>
+    }
 
     if (user || googleUser) {
         console.log(user);
     }
 
     let errorMassage;
-    if (error || googleError) {
-        errorMassage = <p className='text-xs text-red-500 mt-2 font-bold'>{error?.message || googleError?.message}</p>;
+    if (error || googleError || updatingError) {
+        errorMassage = <p className='text-xs text-red-500 mt-2 font-bold'>{error?.message || googleError?.message || updatingError.message}</p>;
     }
 
     return (

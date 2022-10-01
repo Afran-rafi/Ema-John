@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import auth from '../../firebase-config';
 import google from '../Images/google.png'
 import { useForm } from "react-hook-form";
+import Loading from '../Shared/Loading';
 
 const Register = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -12,10 +13,21 @@ const Register = () => {
         user,
         loading,
         error,
-        sendEmailVerification
     ] = useCreateUserWithEmailAndPassword(auth);
-
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
+
+    if (user || googleUser) {
+        console.log(user);
+    }
+
+    if (loading || googleLoading) {
+        return <Loading></Loading>
+    }
+
+    let errorMessage;
+    if (error || googleError) {
+        errorMessage = <p className='text-xs text-red-500 mt-2 font-bold'>{error.message || googleError.message}</p>
+    }
 
     const onSubmit = async (data) => {
         await createUserWithEmailAndPassword(data.email, data.password, { sendEmailVerification: true });
@@ -101,6 +113,7 @@ const Register = () => {
                     </div>
                 </form>
 
+                {errorMessage}
                 <p className='text-center text-xs mt-2'>Already have an account? <Link className='text-orange-500 font-bold' to='/login'>Login</Link></p>
                 <div className='flex justify-around items-center mt-2'>
                     <div className='w-[30%]'>
