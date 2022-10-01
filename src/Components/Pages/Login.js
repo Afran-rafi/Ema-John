@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase-config';
 import '../CSS/Login.css';
@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
 
 const Login = () => {
-
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
@@ -27,6 +26,12 @@ const Login = () => {
         await signInWithEmailAndPassword(data.email, data.password);
         reset();
     };
+
+    const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
+    const resetPassword = async () => {
+        await sendPasswordResetEmail();
+        alert('Sent Email . Please check your email dear.');
+    }
 
     if (loading || googleLoading) {
         return <Loading></Loading>
@@ -96,7 +101,7 @@ const Login = () => {
                 </form>
                 {errorMassage}
                 <p className='text-center text-xs mt-2'>New to Ema John? <Link className='text-orange-500 font-bold' to='/signUp'>Create New User</Link></p>
-                <p className='text-center text-xs mt-2'>Forget Password? <button className='font-bold text-orange-500 border-none'>Reset Password</button></p>
+                <p className='text-center text-xs mt-2'>Forget Password? <button onClick={resetPassword} className='font-bold text-orange-500 border-none'>Reset Password</button></p>
                 <div className='flex justify-around items-center mt-2'>
                     <div className='w-[30%]'>
                         <hr />
