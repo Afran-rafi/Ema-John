@@ -9,7 +9,7 @@ import Loading from '../Shared/Loading';
 
 const Login = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset, getValues } = useForm();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -29,8 +29,10 @@ const Login = () => {
 
     const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
     const resetPassword = async () => {
-        await sendPasswordResetEmail();
+        const email = getValues('email')
+        await sendPasswordResetEmail(email);
         alert('Sent Email . Please check your email dear.');
+        reset();
     }
 
     if (loading || googleLoading) {
