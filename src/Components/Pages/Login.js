@@ -6,6 +6,7 @@ import '../CSS/Login.css';
 import google from '../Images/google.png'
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -24,6 +25,10 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         await signInWithEmailAndPassword(data.email, data.password);
+        toast.success('Login Successful Dear', {
+            position: "top-right",
+            theme: 'dark',
+        });
         reset();
     };
 
@@ -31,7 +36,10 @@ const Login = () => {
     const resetPassword = async () => {
         const email = getValues('email')
         await sendPasswordResetEmail(email);
-        alert('Sent Email . Please check your email dear.');
+        toast.success('Please check your email dear!!', {
+            position: "top-right",
+            theme: 'dark',
+        });
         reset();
     }
 

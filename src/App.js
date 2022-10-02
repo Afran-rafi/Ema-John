@@ -9,6 +9,8 @@ import Shop from "./Components/Pages/Shop";
 import Errorpage from "./Components/Shared/Errorpage";
 import Navbar from "./Components/Shared/Navbar";
 import RequireAuth from "./Components/Shared/RequireAuth";
+import { ToastContainer} from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="/signUp" element={<Register></Register>}></Route>
           <Route path="*" element={<Errorpage></Errorpage>}></Route>
         </Routes>
+        <ToastContainer />
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase-config';
 import google from '../Images/google.png'
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -14,11 +15,16 @@ const Register = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
 
     if (user || googleUser) {
-        console.log(user);
+        navigate(from, {replace: true});
     }
 
     if (loading || googleLoading || updating) {
@@ -32,6 +38,10 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         await createUserWithEmailAndPassword(data.email, data.password);
+        toast.success('Register Successful Dear!!', {
+            position: "top-right",
+            theme: 'dark',
+        });
         reset();
         await updateProfile({ displayName: data.name });
     };
